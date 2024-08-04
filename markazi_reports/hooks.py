@@ -29,6 +29,9 @@ app_license = "mit"
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {
+    "Sales Invoice": "markazi_reports/doctype/markazi_reports/markazi_reports.js"
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -131,12 +134,12 @@ app_license = "mit"
 # }
 doc_events = {
     "Stock Ledger Entry": {
-        "on_submit": "markazi_reports.markazi_reports.doctype.custom_stock_ledger.events.update_product_bundle_cost",
+        "on_submit": "markazi_reports.markazi_reports.doctype.markazi_reports.events.update_product_bundle_cost",
     },
     "Sales Invoice": {
-        "on_submit": "markazi_reports.markazi_reports.doctype.custom_stock_ledger.events.on_sales_invoice_submit",
-        "validate": "markazi_reports.markazi_reports.doctype.custom_stock_ledger.events.on_sales_invoice_validate",
-        # TODO: "on_cancel": "markazi_reports.markazi_reports.doctype.custom_stock_ledger.events.on_sales_invoice_cancel",
+        "on_submit": "markazi_reports.markazi_reports.doctype.markazi_reports.events.on_sales_invoice_submit",
+        "validate": "markazi_reports.markazi_reports.doctype.markazi_reports.events.on_sales_invoice_validate",
+        # TODO: "on_cancel": "markazi_reports.markazi_reports.doctype.markazi_reports.events.on_sales_invoice_cancel",
     },
 }
 
