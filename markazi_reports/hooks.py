@@ -129,6 +129,16 @@ app_license = "mit"
 # 		"on_trash": "method"
 # 	}
 # }
+doc_events = {
+    "Stock Ledger Entry": {
+        "on_submit": "markazi_reports.markazi_reports.doctype.custom_stock_ledger.events.update_product_bundle_cost",
+    },
+    "Sales Invoice": {
+        "on_submit": "markazi_reports.markazi_reports.doctype.custom_stock_ledger.events.on_sales_invoice_submit",
+        "validate": "markazi_reports.markazi_reports.doctype.custom_stock_ledger.events.on_sales_invoice_validate",
+        # TODO: "on_cancel": "markazi_reports.markazi_reports.doctype.custom_stock_ledger.events.on_sales_invoice_cancel",
+    },
+}
 
 # Scheduled Tasks
 # ---------------
@@ -226,4 +236,3 @@ app_license = "mit"
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
-

@@ -1,0 +1,28 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2024-08-04 14:51:33.239762",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "json": "{}",
+ "letter_head": "T1",
+ "letterhead": null,
+ "modified": "2024-08-04 15:07:51.837347",
+ "modified_by": "Administrator",
+ "module": "Markazi Reports",
+ "name": "Purchase Valuation",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Markazi Reports",
+ "report_name": "Purchase Valuation",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ]
+}
