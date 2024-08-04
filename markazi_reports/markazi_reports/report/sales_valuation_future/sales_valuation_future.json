@@ -10,7 +10,7 @@
  "is_standard": "Yes",
  "letter_head": "T1",
  "letterhead": null,
- "modified": "2024-08-04 14:50:32.310550",
+ "modified": "2024-08-04 16:33:25.749258",
  "modified_by": "Administrator",
  "module": "Markazi Reports",
  "name": "Sales Valuation Future",
@@ -18,6 +18,6 @@
  "prepared_report": 0,
  "ref_doctype": "Markazi Reports",
  "report_name": "Sales Valuation Future",
- "report_type": "Custom Report",
+ "report_type": "Script Report",
  "roles": []
 }
