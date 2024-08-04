@@ -25,12 +25,5 @@ frappe.query_reports["Sales Valuation Future"] = {
             // default: frappe.datetime.get_today(),
             // reqd: 1,
         },
-        {
-            fieldname: "cost",
-            label: __("Avg Cost"),
-            fieldtype: "Float",
-            // default: frappe.datetime.get_today(),
-            // reqd: 1,
-        },
     ],
 };
