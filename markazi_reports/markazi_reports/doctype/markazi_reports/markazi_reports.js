@@ -28,7 +28,7 @@ frappe.ui.form.on("Sales Invoice", {
 
 const checkIfMismatched = (frm) => {
     frappe.call({
-        method: "my_custom_app.my_custom_app.doctype.custom_stock_ledger.events.get_missmatched_items",
+        method: "markazi_reports.markazi_reports.doctype.markazi_reports.events.get_missmatched_items",
         args: {
             doc_name: frm.doc.name,
         },
