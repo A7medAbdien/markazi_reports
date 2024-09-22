@@ -13,18 +13,35 @@ frappe.ui.form.on("Sales Invoice", {
         if (frm.is_new()) {
             frm.toggle_display("custom_mismatching_", false);
         } else {
-            checkIfMismatched(frm);
+            // checkIfMismatched(frm);
+            checkIfMismatchedClient(frm);
         }
     },
     refresh(frm) {
-        // console.log("refresh");
         if (frm.is_new()) {
             frm.toggle_display("custom_mismatching_", false);
         } else {
-            checkIfMismatched(frm);
+            // checkIfMismatched(frm);
+            checkIfMismatchedClient(frm);
         }
     },
 });
+
+const checkIfMismatchedClient = (frm) => {
+    var items = frm.doc.items;
+    if (items.length == 0) {
+        frm.toggle_display("custom_mismatching_", false);
+        return;
+    }
+    frm.toggle_display("custom_mismatching_", true);
+    var missMatchItems = items.map((item) => {
+        if (item.rate != item.price_list_rate) {
+            return item;
+        }
+    });
+    frm.set_value("custom_mismatching_table", missMatchItems);
+    changeMismatchedSectionColor(frm);
+};
 
 const checkIfMismatched = (frm) => {
     frappe.call({
@@ -46,8 +63,7 @@ const checkIfMismatched = (frm) => {
 };
 
 const changeMismatchedSectionColor = (frm) => {
-    const color = "#f57a7a";
-
+    const color = "#ff9696"; // #f57a7a
     frm.fields_dict["custom_mismatching_"].wrapper.css(
         "background-color",
         color
