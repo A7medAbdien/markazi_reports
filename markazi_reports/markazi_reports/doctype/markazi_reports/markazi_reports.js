@@ -33,14 +33,15 @@ const checkIfMismatchedClient = (frm) => {
         frm.toggle_display("custom_mismatching_", false);
         return;
     }
-    frm.toggle_display("custom_mismatching_", true);
-    var missMatchItems = items.map((item) => {
-        if (item.rate != item.price_list_rate) {
-            return item;
-        }
-    });
-    frm.set_value("custom_mismatching_table", missMatchItems);
-    changeMismatchedSectionColor(frm);
+    var missMatchItems = items.filter((item) => item.rate != item.price_list_rate);
+    if (!missMatchItems || missMatchItems.length == 0) {
+        frm.toggle_display("custom_mismatching_", false);
+        return;
+    } else {
+        frm.set_value("custom_mismatching_table", missMatchItems);
+        frm.toggle_display("custom_mismatching_", true);
+        changeMismatchedSectionColor(frm);
+    }
 };
 
 const checkIfMismatched = (frm) => {
