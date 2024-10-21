@@ -7,9 +7,9 @@
  "doctype": "Workspace",
  "for_user": "",
  "hide_custom": 0,
- "icon": "dashboard-list",
+ "icon": "",
  "idx": 0,
- "indicator_color": "",
+ "indicator_color": "blue",
  "is_hidden": 0,
  "label": "Markazi",
  "links": [
@@ -63,7 +63,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-10-21 14:17:24.754310",
+ "modified": "2024-10-21 15:22:15.415430",
  "modified_by": "ahmed.abdin@shahico.net",
  "module": "Markazi Reports",
  "name": "Markazi",
@@ -77,7 +77,7 @@
    "role": "Markazi Reports"
   }
  ],
- "sequence_id": 2.0,
+ "sequence_id": 33.0,
  "shortcuts": [],
  "title": "Markazi"
 }
