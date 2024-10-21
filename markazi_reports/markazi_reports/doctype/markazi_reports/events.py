@@ -5,7 +5,7 @@ def on_sales_invoice_submit(doc, envnt):
     # it updates product bundle and shows woring
     # if id did not find a prodct pundle for this item
     # for the companies in companies list
-    update_product_bundle_on_sales(doc, ["Hi (Demo)"])
+    update_product_bundle_on_sales(doc, ["Key Al Markazi"])
 
 
 def on_sales_invoice_validate(doc, envnt):
@@ -90,7 +90,7 @@ def update_product_bundle_on_sales(doc, company_list):
         new_gp = new_price - product_bundle_doc.custom_cost
         new_cut = 0
         if product_bundle_doc.custom_has_cut:
-            new_cut = new_gp * product_bundle_doc.cut_rate
+            new_cut = new_gp * product_bundle_doc.custom_cut_rate
         new_np = new_gp - new_cut
 
         product_bundle_doc.custom_price = new_price
@@ -108,7 +108,7 @@ def update_product_bundle_name(doc, event):
     product_bundle_name = frappe.get_doc(
         "Product Bundle",
         item_code,
-        fields=["name", "parent_name"],
+        fields=["name", "custom_parent_name"],
     )
     product_bundle_name.custom_parent_name = item_name
     product_bundle_name.save()
@@ -151,7 +151,7 @@ def update_product_bundle_cost(doc, event):
         cost = 0
         for item in product_bundle_doc.items:
             cost += item.valuation_rate
-        product_bundle_doc.cost = cost
+        product_bundle_doc.custom_cost = cost
         product_bundle_doc.save()
 
     frappe.db.commit()

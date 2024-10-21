@@ -117,10 +117,21 @@ def execute(filters=None):
 
 
 def get_product_bundles():
-    return frappe.get_all(
+    pds_ = frappe.get_all(
         "Product Bundle",
-        fields=["name", "parent_name", "cost", "price"],
+        fields=["name", "custom_parent_name", "custom_cost", "custom_price"],
     )
+    
+    pds = [
+        AttrDict({
+            "name":pd.name,
+            "parent_name": pd.custom_parnet_name,
+            "cost": pd.custom_cost,
+            "price": pd.custom_price
+        })
+        for pd in pds_
+    ]
+    return pds
 
 
 def get_calculated_product_bundels(filters):
