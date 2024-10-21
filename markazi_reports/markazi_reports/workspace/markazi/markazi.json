@@ -24,12 +24,13 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Purchase Valuation",
    "link_count": 0,
    "link_to": "Purchase Valuation",
    "link_type": "Report",
    "onboard": 0,
+   "report_ref_doctype": "Markazi Reports",
    "type": "Link"
   },
   {
@@ -43,7 +44,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Sales Valuation Past",
    "link_count": 0,
    "link_to": "Sales Valuation Past",
@@ -53,7 +54,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Sales Valuation Future",
    "link_count": 0,
    "link_to": "Sales Valuation Future",
@@ -62,8 +63,8 @@
    "type": "Link"
   }
  ],
- "modified": "2024-09-23 15:38:55.756781",
- "modified_by": "Administrator",
+ "modified": "2024-10-21 14:14:37.988517",
+ "modified_by": "ahmed.abdin@shahico.net",
  "module": "Markazi Reports",
  "name": "Markazi",
  "number_cards": [],
