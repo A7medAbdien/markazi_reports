@@ -138,7 +138,6 @@ doc_events = {
     },
     "Sales Invoice": {
         "on_submit": "markazi_reports.markazi_reports.doctype.markazi_reports.events.on_sales_invoice_submit",
-        "validate": "markazi_reports.markazi_reports.doctype.markazi_reports.events.on_sales_invoice_validate",
         # TODO: "on_cancel": "markazi_reports.markazi_reports.doctype.markazi_reports.events.on_sales_invoice_cancel",
     },
 }
