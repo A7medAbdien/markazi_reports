@@ -13,7 +13,7 @@ const changeRowColor = () => {
         const actualMarginCell = rowCells[rowCells.length - 1];
 
         if (actualMarginCell) {
-            if (actualMarginCell.innerText === "1") {
+            if (actualMarginCell.innerText === "0") {
                 rowCells.forEach((cell) => {
                     cell.style.backgroundColor = color;
                     row.querySelectorAll("div").forEach((div) => {
