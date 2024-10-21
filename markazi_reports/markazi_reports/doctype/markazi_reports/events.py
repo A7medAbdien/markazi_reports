@@ -1,85 +1,22 @@
 import frappe
 
-
+company_list = ["Key Al Markazi"]
 def on_sales_invoice_submit(doc, envnt):
     # it updates product bundle and shows woring
     # if id did not find a prodct pundle for this item
     # for the companies in companies list
-    update_product_bundle_on_sales(doc, ["Key Al Markazi"])
-
-
-def on_sales_invoice_validate(doc, envnt):
-    # show_price_list_worning(doc)
-    pass
-
-
-def show_price_list_worning(doc):
-    # doc here is sales invoice
-    price_list = doc.selling_price_list
-    print(f"\n\n\n  {price_list}")
-
-    # item has price list
-    item_price_not_match = []
-    for item in doc.items:
-        item_price = frappe.get_last_doc(
-            "Item Price",
-            {
-                "item_code": item.item_code,
-                "price_list": price_list,
-                "selling": 1,
-            },
-        )
-        if item.rate != item_price.price_list_rate:
-            item_price_not_match.append(
-                {
-                    "item_name": item.item_name,
-                    "item_code": item.item_code,
-                    "price_list_rate": item.price_list_rate,
-                    "rate": item.rate,
-                }
-            )
-
-    if len(item_price_not_match) > 0:
-        message = []
-        for item in item_price_not_match:
-            message.append(f"{item['item_code']}: {item['item_name']}")
-        frappe.throw(title="Price list rate does not match", msg=message, as_list=True)
-
-
-@frappe.whitelist()
-def get_missmatched_items(doc_name):
-    si = frappe.get_doc("Sales Invoice", doc_name)
-    miss = []
-    for sii in si.items:
-        if sii.price_list_rate != sii.rate:
-            miss.append(sii)
-
-    si.custom_mismatching_table = miss
-    print(si.custom_mismatching_table)
-    return miss
-
-
-@frappe.whitelist()
-def update_item_prices(items):
-    import json
-
-    items = json.loads(items)
-    print("\n\n\n")
-    print(items)
-
-    for item in items:
-        item_doc = frappe.get_doc("Sales Invoice Item", item["name"])
-        item_doc.price_list_rate = item["price_list_rate"]
-        item_doc.rate = item["rate"]
-        item_doc.save()
-
-    return {"status": "success"}
-
-
-def update_product_bundle_on_sales(doc, company_list):
-    print("\n\n\n  update_product_bundle_on_sales")
     if doc.company not in company_list:
         return
+    update_product_bundle_on_sales(doc)
+
+def on_submit_stock_ledger(doc, event):
+    if doc.company not in company_list:
+        return
+    update_product_bundle_name(doc)
+    update_product_bundle_cost(doc)
+
+def update_product_bundle_on_sales(doc):
+    print("\n\n\n  update_product_bundle_on_sales")
     for item in doc.items:
         try:
             product_bundle_doc = frappe.get_doc("Product Bundle", item.item_code)
@@ -102,7 +39,8 @@ def update_product_bundle_on_sales(doc, company_list):
     print("\n\n\n")
 
 
-def update_product_bundle_name(doc, event):
+# runs on submit stock entery
+def update_product_bundle_name(doc):
     item_code = doc.item_code
     item_name = doc.item_name
     product_bundle_name = frappe.get_doc(
@@ -116,7 +54,7 @@ def update_product_bundle_name(doc, event):
     frappe.db.commit()
 
 
-def update_product_bundle_cost(doc, event):
+def update_product_bundle_cost(doc):
     stock_ledger_entry_type = doc.voucher_type
     print(f"\n\n\n Item from custom update_product_bundle_cost \n\n\n")
     print(stock_ledger_entry_type)

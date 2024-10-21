@@ -6,23 +6,23 @@
 
 // 	},
 // });
+const company_list = ["Key Al Markazi"]
 
 frappe.ui.form.on("Sales Invoice", {
     onload(frm) {
-        // console.log("onload");
         if (frm.is_new()) {
             frm.toggle_display("custom_mismatching_", false);
         } else {
-            // checkIfMismatched(frm);
-            checkIfMismatchedClient(frm);
+            if (frm.doc.company && company_list.includes(frm.doc.company))
+                checkIfMismatchedClient(frm);
         }
     },
     refresh(frm) {
         if (frm.is_new()) {
             frm.toggle_display("custom_mismatching_", false);
         } else {
-            // checkIfMismatched(frm);
-            checkIfMismatchedClient(frm);
+            if (frm.doc.company && company_list.includes(frm.doc.company))
+                checkIfMismatchedClient(frm);
         }
     },
 });
@@ -42,25 +42,6 @@ const checkIfMismatchedClient = (frm) => {
         frm.toggle_display("custom_mismatching_", true);
         changeMismatchedSectionColor(frm);
     }
-};
-
-const checkIfMismatched = (frm) => {
-    frappe.call({
-        method: "markazi_reports.markazi_reports.doctype.markazi_reports.events.get_missmatched_items",
-        args: {
-            doc_name: frm.doc.name,
-        },
-        callback: (r) => {
-            no_miss = r.message.length;
-            // console.log(no_miss);
-            if (no_miss > 0) {
-                frm.toggle_display("custom_mismatching_", true);
-                frm.doc.miss = r.message;
-                changeMismatchedSectionColor(frm);
-            } else frm.toggle_display("custom_mismatching_", false);
-            refresh_field("custom_mismatching_");
-        },
-    });
 };
 
 const changeMismatchedSectionColor = (frm) => {

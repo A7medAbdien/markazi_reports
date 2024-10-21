@@ -134,7 +134,7 @@ doctype_js = {
 # }
 doc_events = {
     "Stock Ledger Entry": {
-        "on_submit": "markazi_reports.markazi_reports.doctype.markazi_reports.events.update_product_bundle_cost",
+        "on_submit": "markazi_reports.markazi_reports.doctype.markazi_reports.events.on_submit_stock_ledger",
     },
     "Sales Invoice": {
         "on_submit": "markazi_reports.markazi_reports.doctype.markazi_reports.events.on_sales_invoice_submit",
