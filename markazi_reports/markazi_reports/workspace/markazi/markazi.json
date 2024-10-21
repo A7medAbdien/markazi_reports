@@ -63,7 +63,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-10-21 14:14:37.988517",
+ "modified": "2024-10-21 14:17:24.754310",
  "modified_by": "ahmed.abdin@shahico.net",
  "module": "Markazi Reports",
  "name": "Markazi",
@@ -72,7 +72,11 @@
  "parent_page": "",
  "public": 1,
  "quick_lists": [],
- "roles": [],
+ "roles": [
+  {
+   "role": "Markazi Reports"
+  }
+ ],
  "sequence_id": 2.0,
  "shortcuts": [],
  "title": "Markazi"
