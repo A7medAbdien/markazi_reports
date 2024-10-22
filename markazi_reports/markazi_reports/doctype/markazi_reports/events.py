@@ -12,7 +12,6 @@ def on_sales_invoice_submit(doc, envnt):
 def on_submit_stock_ledger(doc, event):
     if doc.company not in company_list:
         return
-    update_product_bundle_name(doc)
     update_product_bundle_cost(doc)
 
 def update_product_bundle_on_sales(doc):
@@ -23,6 +22,7 @@ def update_product_bundle_on_sales(doc):
         except frappe.DoesNotExistError:
             frappe.throw(f"{item.item_code} does not have a product bundle")
 
+        product_bundle_doc.custom_parent_name = item.item_name
         new_price = (item.rate + product_bundle_doc.custom_price) / 2
         new_gp = new_price - product_bundle_doc.custom_cost
         new_cut = 0
@@ -40,20 +40,6 @@ def update_product_bundle_on_sales(doc):
 
 
 # runs on submit stock entery
-def update_product_bundle_name(doc):
-    item_code = doc.item_code
-    item_name = doc.item_name
-    product_bundle_name = frappe.get_doc(
-        "Product Bundle",
-        item_code,
-        fields=["name", "custom_parent_name"],
-    )
-    product_bundle_name.custom_parent_name = item_name
-    product_bundle_name.save()
-
-    frappe.db.commit()
-
-
 def update_product_bundle_cost(doc):
     stock_ledger_entry_type = doc.voucher_type
     print(f"\n\n\n Item from custom update_product_bundle_cost \n\n\n")

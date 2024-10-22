@@ -125,7 +125,7 @@ def get_product_bundles():
     pds = [
         AttrDict({
             "name":pd.name,
-            "parent_name": pd.custom_parnet_name,
+            "parent_name": pd.custom_parent_name,
             "cost": pd.custom_cost,
             "price": pd.custom_price
         })
