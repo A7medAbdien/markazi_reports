@@ -7,25 +7,40 @@
 // 	},
 // });
 const company_list = ["Key Al Markazi"]
+const customer_list = [
+    "DH STORE BAHRAIN WLL TM3 SEGAYA",
+    "DH STORE BAHRAIN WLL TM6 SEEF",
+    "DH STORE BAHRAIN WLL TM5 SAAR",
+    "DH STORE BAHRAIN WLL TM4 REEF",
+    "DH STORE BAHRAIN WLL TM2 HAJIYAT",
+    "DH STORE BAHRAIN WLL TM1 GALALI",
+]
 
 frappe.ui.form.on("Sales Invoice", {
     onload(frm) {
         if (frm.is_new()) {
             frm.toggle_display("custom_mismatching_", false);
         } else {
-            if (frm.doc.company && company_list.includes(frm.doc.company))
-                checkIfMismatchedClient(frm);
+            checkMismatched(frm);
         }
     },
     refresh(frm) {
         if (frm.is_new()) {
             frm.toggle_display("custom_mismatching_", false);
         } else {
-            if (frm.doc.company && company_list.includes(frm.doc.company))
-                checkIfMismatchedClient(frm);
+            checkMismatched(frm);
         }
     },
 });
+
+const checkMismatched = (frm) => {
+    if (
+        frm.doc.company && company_list.includes(frm.doc.company)
+        && frm.doc.customer && customer_list.includes(frm.doc.customer)
+        && !frm.doc.is_return
+    )
+        checkIfMismatchedClient(frm);
+}
 
 const checkIfMismatchedClient = (frm) => {
     var items = frm.doc.items;
