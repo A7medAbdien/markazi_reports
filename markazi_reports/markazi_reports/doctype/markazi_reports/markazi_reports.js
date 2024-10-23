@@ -17,18 +17,18 @@ const customer_list = [
 ]
 
 frappe.ui.form.on("Sales Invoice", {
+    // onload(frm) {
+    //     if (frm.is_new()) {
+    //         frm.toggle_display("custom_mismatching_", false);
+    //     } else {
+    //         checkMismatched(frm);
+    //     }
+    // },
     onload(frm) {
         if (frm.is_new()) {
             frm.toggle_display("custom_mismatching_", false);
         } else {
-            checkMismatched(frm);
-        }
-    },
-    refresh(frm) {
-        if (frm.is_new()) {
-            frm.toggle_display("custom_mismatching_", false);
-        } else {
-            checkMismatched(frm);
+            // checkMismatched(frm);
         }
     },
 });
@@ -53,11 +53,21 @@ const checkIfMismatchedClient = (frm) => {
         frm.toggle_display("custom_mismatching_", false);
         return;
     } else {
-        frm.set_value("custom_mismatching_table", missMatchItems);
+        // if (frm.doc.arraysEqual(frm.doc))
+        // frm.set_value("custom_mismatching_table", missMatchItems);
         frm.toggle_display("custom_mismatching_", true);
         changeMismatchedSectionColor(frm);
     }
 };
+
+const arraysEqual = (a1, a2) =>
+    a1.length === a2.length && a1.every((o, idx) => objectsEqual(o, a2[idx]));
+
+const objectsEqual = (o1, o2) =>
+    typeof o1 === 'object' && Object.keys(o1).length > 0
+        ? Object.keys(o1).length === Object.keys(o2).length
+        && Object.keys(o1).every(p => objectsEqual(o1[p], o2[p]))
+        : o1 === o2;
 
 const changeMismatchedSectionColor = (frm) => {
     const color = "#ff9696"; // #f57a7a
