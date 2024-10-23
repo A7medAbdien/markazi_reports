@@ -25,8 +25,8 @@ frappe.ui.form.on("Sales Invoice", {
     //     }
     // },
     onload(frm) {
+        frm.toggle_display("custom_mismatching_", false);
         if (frm.is_new()) {
-            frm.toggle_display("custom_mismatching_", false);
         } else {
             // checkMismatched(frm);
         }
