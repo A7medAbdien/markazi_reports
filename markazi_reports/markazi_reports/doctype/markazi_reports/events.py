@@ -56,17 +56,17 @@ def update_product_bundle_cost(doc):
     # get all product bundle items that this item was in, Parent
     product_bundles_items = frappe.get_all(
         "Product Bundle Item",
-        fields=["name", "item_code", "valuation_rate", "parent"],
+        fields=["name", "item_code", "custom_valuation_rate", "parent"],
         filters={"item_code": item_code},
     )
 
     for bundle_item in product_bundles_items:
         # get full doc and take the avg
         bundle_item_doc = frappe.get_doc("Product Bundle Item", bundle_item.name)
-        print(bundle_item.valuation_rate, valuation_rate)
-        new_valuation_rate = (valuation_rate + bundle_item_doc.valuation_rate) / 2
-        bundle_item_doc.valuation_rate = new_valuation_rate
-        print(bundle_item_doc.valuation_rate)
+        # print(bundle_item.valuation_rate, valuation_rate)
+        new_valuation_rate = (valuation_rate + bundle_item_doc.custom_valuation_rate) / 2
+        bundle_item_doc.custom_valuation_rate = new_valuation_rate
+        # print(bundle_item_doc.valuation_rate)
         bundle_item_doc.save()
 
         # get its parent / product bundle
@@ -74,7 +74,7 @@ def update_product_bundle_cost(doc):
 
         cost = 0
         for item in product_bundle_doc.items:
-            cost += item.valuation_rate
+            cost += item.custom_valuation_rate
         product_bundle_doc.custom_cost = cost
         product_bundle_doc.save()
 
