@@ -17,18 +17,16 @@ const customer_list = [
 ]
 
 frappe.ui.form.on("Sales Invoice", {
-    // onload(frm) {
-    //     if (frm.is_new()) {
-    //         frm.toggle_display("custom_mismatching_", false);
-    //     } else {
-    //         checkMismatched(frm);
-    //     }
-    // },
     onload(frm) {
         frm.toggle_display("custom_mismatching_", false);
-        if (frm.is_new()) {
-        } else {
-            // checkMismatched(frm);
+        if (!frm.is_new()) {
+            checkMismatched(frm);
+        }
+    },
+    after_save(frm) {
+        frm.toggle_display("custom_mismatching_", false);
+        if (!frm.is_new()) {
+            checkMismatched(frm);
         }
     },
 });
@@ -38,6 +36,7 @@ const checkMismatched = (frm) => {
         frm.doc.company && company_list.includes(frm.doc.company)
         && frm.doc.customer && customer_list.includes(frm.doc.customer)
         && !frm.doc.is_return
+        || true
     )
         checkIfMismatchedClient(frm);
 }
@@ -48,16 +47,32 @@ const checkIfMismatchedClient = (frm) => {
         frm.toggle_display("custom_mismatching_", false);
         return;
     }
-    var missMatchItems = items.filter((item) => item.rate != item.price_list_rate);
+
+    var missMatchItems = items.filter((item) =>
+        item.custom_latest_price_list_rate != 0 &&
+        item.rate != item.custom_latest_price_list_rate
+    );
+    console.log(missMatchItems);
+
     if (!missMatchItems || missMatchItems.length == 0) {
         frm.toggle_display("custom_mismatching_", false);
         return;
     } else {
-        // if (frm.doc.arraysEqual(frm.doc))
-        // frm.set_value("custom_mismatching_table", missMatchItems);
         frm.toggle_display("custom_mismatching_", true);
         changeMismatchedSectionColor(frm);
+        console.log("test");
+
+        // if (!arraysEqual(frm.doc.custom_mismatching_table, frm.doc.custom_mismatching_table))
+        frm.set_value("custom_mismatching_table", missMatchItems);
     }
+};
+
+const changeMismatchedSectionColor = (frm) => {
+    const color = "#ff9696"; // #f57a7a
+    frm.fields_dict["custom_mismatching_"].wrapper.css(
+        "background-color",
+        color
+    );
 };
 
 const arraysEqual = (a1, a2) =>
@@ -68,11 +83,3 @@ const objectsEqual = (o1, o2) =>
         ? Object.keys(o1).length === Object.keys(o2).length
         && Object.keys(o1).every(p => objectsEqual(o1[p], o2[p]))
         : o1 === o2;
-
-const changeMismatchedSectionColor = (frm) => {
-    const color = "#ff9696"; // #f57a7a
-    frm.fields_dict["custom_mismatching_"].wrapper.css(
-        "background-color",
-        color
-    );
-};
