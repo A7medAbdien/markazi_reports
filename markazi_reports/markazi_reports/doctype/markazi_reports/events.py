@@ -11,10 +11,9 @@ customer_list = [
 ]
 
 
-def on_sales_invoice_validate(doc, event):
-    print("\n\n\n  on_sales_invoice_validate")
-    # if (doc.company not in company_list) or (doc.customer not in customer_list):
-    #     return
+def on_sales_invoice_before_save(doc, event):
+    if (doc.company not in company_list) or (doc.customer not in customer_list):
+        return
     set_price_latest_list(doc)
 
 
@@ -106,13 +105,9 @@ def update_product_bundle_cost(doc):
 
 def set_price_latest_list(doc):
     price_list = get_last_price_list()
-    print("\n\n\n")
-    print(price_list)
     if price_list is None:
         frappe.throw("No price list found")
         return
-    print("\n\n\n")
-    print(doc.items[0])
     for items in doc.items:
         price = get_item_price(items.item_code, price_list.name)
         items.custom_latest_price_list_rate = price
@@ -126,16 +121,10 @@ def get_item_price(item_code, price_list_name):
         as_dict=True,
     )
 
-    # Debugging output
-    print("\n\n\n")
-    print(f"Price List: {price_list_name}, Item Code: {item_code}")
-    print("Item Price List Rate:", item_price_list_rate)
-
     # Check if a rate was found
     if item_price_list_rate:
         return item_price_list_rate.get("price_list_rate")
     else:
-        print("Price list rate not found.")
         return None
 
 

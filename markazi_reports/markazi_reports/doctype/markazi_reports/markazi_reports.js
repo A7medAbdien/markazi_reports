@@ -36,7 +36,6 @@ const checkMismatched = (frm) => {
         frm.doc.company && company_list.includes(frm.doc.company)
         && frm.doc.customer && customer_list.includes(frm.doc.customer)
         && !frm.doc.is_return
-        || true
     )
         checkIfMismatchedClient(frm);
 }
@@ -60,10 +59,8 @@ const checkIfMismatchedClient = (frm) => {
     } else {
         frm.toggle_display("custom_mismatching_", true);
         changeMismatchedSectionColor(frm);
-        console.log("test");
-
-        // if (!arraysEqual(frm.doc.custom_mismatching_table, frm.doc.custom_mismatching_table))
-        frm.set_value("custom_mismatching_table", missMatchItems);
+        if (!arraysEqual(frm.doc.custom_mismatching_table, missMatchItems))
+            frm.set_value("custom_mismatching_table", missMatchItems);
     }
 };
 
