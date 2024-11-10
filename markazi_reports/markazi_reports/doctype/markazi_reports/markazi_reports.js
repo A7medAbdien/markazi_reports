@@ -20,13 +20,13 @@ frappe.ui.form.on("Sales Invoice", {
     onload(frm) {
         frm.toggle_display("custom_mismatching_", false);
         if (!frm.is_new()) {
-            checkMismatched(frm);
+            //checkMismatched(frm);
         }
     },
     after_save(frm) {
         frm.toggle_display("custom_mismatching_", false);
         if (!frm.is_new()) {
-            checkMismatched(frm);
+            //checkMismatched(frm);
         }
     },
 });
