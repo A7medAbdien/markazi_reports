@@ -75,12 +75,21 @@ const changeMismatchedSectionColor = (frm) => {
         color
     );
 };
+const ignoredFields = new Set([
+    "parentfield", "image", "__unsaved", "creation", "modified", "modified_by"
+]);
 
 const arraysEqual = (a1, a2) =>
     a1.length === a2.length && a1.every((o, idx) => objectsEqual(o, a2[idx]));
 
-const objectsEqual = (o1, o2) =>
-    typeof o1 === 'object' && Object.keys(o1).length > 0
-        ? Object.keys(o1).length === Object.keys(o2).length
-        && Object.keys(o1).every(p => objectsEqual(o1[p], o2[p]))
-        : o1 === o2;
+const objectsEqual = (o1, o2) => {
+    if (typeof o1 === 'object' && o1 !== null && typeof o2 === 'object' && o2 !== null) {
+        const o1Keys = Object.keys(o1).filter(key => !ignoredFields.has(key));
+        const o2Keys = Object.keys(o2).filter(key => !ignoredFields.has(key));
+
+        return o1Keys.length === o2Keys.length &&
+            o1Keys.every(key => objectsEqual(o1[key], o2[key]));
+    } else {
+        return o1 === o2;
+    }
+};
