@@ -59,7 +59,8 @@ const checkIfMismatchedClient = (frm) => {
     } else {
         frm.toggle_display("custom_mismatching_", true);
         changeMismatchedSectionColor(frm);
-        console.log(frm.doc.custom_mismatching_table);
+        console.log("m", missMatchItems);
+        console.log("f", frm.doc.custom_mismatching_table);
         console.log(!arraysEqual(frm.doc.custom_mismatching_table, missMatchItems));
 
         if (!arraysEqual(frm.doc.custom_mismatching_table, missMatchItems))
