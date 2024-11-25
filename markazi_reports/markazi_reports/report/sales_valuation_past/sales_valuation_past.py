@@ -98,15 +98,21 @@ def execute(filters=None):
             "cost": row.cost,
             "price": row.price,
             "gross_profit": (row.price - row.cost),
-            "gross_profit_p": (row.price - row.cost) / row.cost if row.cost else 0,
-            "t_cut": (row.price - row.cost) * 0.33,
-            "net_profit": ((row.price - row.cost) * 0.77),
+            "gross_profit_p": (
+                ((row.price - row.cost) / row.cost) * 100 if row.cost else 0
+            ),
+            "t_cut": row.price * 0.33,
+            "net_profit": ((row.price - row.cost) - (row.price * 0.33)),
             "net_profit_p": (
-                ((row.price - row.cost) * 0.77) / row.cost if row.cost else 0
+                (((row.price - row.cost) - (row.price * 0.33)) / row.cost) * 100
+                if row.cost
+                else 0
             ),
             "breack_even_margin": row.cost * 0.1,
             "actual_margin": (
-                1 if ((row.price - row.cost) * 0.77) > row.cost * 0.1 else 0
+                1
+                if ((row.price - row.cost) - (row.price * 0.33)) > row.cost * 0.1
+                else 0
             ),
         }
         for row in product_bundles
@@ -121,14 +127,16 @@ def get_product_bundles():
         "Product Bundle",
         fields=["name", "custom_parent_name", "custom_cost", "custom_price"],
     )
-    
+
     pds = [
-        AttrDict({
-            "name":pd.name,
-            "parent_name": pd.custom_parent_name,
-            "cost": pd.custom_cost,
-            "price": pd.custom_price
-        })
+        AttrDict(
+            {
+                "name": pd.name,
+                "parent_name": pd.custom_parent_name,
+                "cost": pd.custom_cost,
+                "price": pd.custom_price,
+            }
+        )
         for pd in pds_
     ]
     return pds
