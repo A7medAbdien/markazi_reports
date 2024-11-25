@@ -91,34 +91,32 @@ def execute(filters=None):
     else:
         product_bundles = get_product_bundles()
 
-    data = [
-        {
+    def calculate_row(row):
+        cost = row.cost
+        price = row.price
+        gross_profit = price - cost
+        gross_profit_p = (gross_profit / cost * 100) if cost else 0
+        t_cut = price * 0.33
+        net_profit = gross_profit - t_cut
+        net_profit_p = (net_profit / cost * 100) if cost else 0
+        breack_even_margin = cost * 0.1
+        actual_margin = 1 if net_profit > breack_even_margin else 0
+
+        return {
             "name": row.name,
             "parent_name": row.parent_name,
-            "cost": row.cost,
-            "price": row.price,
-            "gross_profit": (row.price - row.cost),
-            "gross_profit_p": (
-                ((row.price - row.cost) / row.cost) * 100 if row.cost else 0
-            ),
-            "t_cut": row.price * 0.33,
-            "net_profit": ((row.price - row.cost) - (row.price * 0.33)),
-            "net_profit_p": (
-                (((row.price - row.cost) - (row.price * 0.33)) / row.cost) * 100
-                if row.cost
-                else 0
-            ),
-            "breack_even_margin": row.cost * 0.1,
-            "actual_margin": (
-                1
-                if ((row.price - row.cost) - (row.price * 0.33)) > row.cost * 0.1
-                else 0
-            ),
+            "cost": cost,
+            "price": price,
+            "gross_profit": gross_profit,
+            "gross_profit_p": gross_profit_p,
+            "t_cut": t_cut,
+            "net_profit": net_profit,
+            "net_profit_p": net_profit_p,
+            "breack_even_margin": breack_even_margin,
+            "actual_margin": actual_margin,
         }
-        for row in product_bundles
-        if row.cost > filtered_cost
-    ]
 
+    data = [calculate_row(row) for row in product_bundles if row.cost > filtered_cost]
     return columns, data
 
 
