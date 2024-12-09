@@ -1,6 +1,13 @@
 import frappe
 
-company_list = ["Key Al Markazi"]
+trusted_users_to_create_price_list = [
+    "Administrator",
+    "ahmed.abdin@shahico.net"
+]
+company_list = [
+    "Key Al Markazi",
+    "happyDay",
+]
 customer_list = [
     "DH STORE BAHRAIN WLL TM3 SEGAYA",
     "DH STORE BAHRAIN WLL TM6 SEEF",
@@ -8,6 +15,7 @@ customer_list = [
     "DH STORE BAHRAIN WLL TM4 REEF",
     "DH STORE BAHRAIN WLL TM2 HAJIYAT",
     "DH STORE BAHRAIN WLL TM1 GALALI",
+    "Test",
 ]
 
 
@@ -108,9 +116,9 @@ def set_price_latest_list(doc):
     if price_list is None:
         frappe.throw("No price list found")
         return
-    for items in doc.items:
-        price = get_item_price(items.item_code, price_list.name)
-        items.custom_latest_price_list_rate = price
+    for item in doc.items:
+        price = get_item_price(item.item_code, price_list.name)
+        item.custom_latest_price_list_rate = price
 
 
 def get_item_price(item_code, price_list_name):
@@ -130,7 +138,6 @@ def get_item_price(item_code, price_list_name):
 
 def get_last_price_list():
     # TODO: createa setting doctype and add thos to it
-    trusted_users_to_create_price_list = ["Administrator", "ahmed.abdin@shahico.net"]
     price_list = frappe.get_last_doc(
         "Price List",
         filters={"selling": 1, "owner": ["in", trusted_users_to_create_price_list]},

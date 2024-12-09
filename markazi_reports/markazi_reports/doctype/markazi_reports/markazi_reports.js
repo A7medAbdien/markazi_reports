@@ -6,7 +6,7 @@
 
 // 	},
 // });
-const company_list = ["Key Al Markazi"]
+const company_list = ["Key Al Markazi", "happyDay"]
 const customer_list = [
     "DH STORE BAHRAIN WLL TM3 SEGAYA",
     "DH STORE BAHRAIN WLL TM6 SEEF",
@@ -14,19 +14,20 @@ const customer_list = [
     "DH STORE BAHRAIN WLL TM4 REEF",
     "DH STORE BAHRAIN WLL TM2 HAJIYAT",
     "DH STORE BAHRAIN WLL TM1 GALALI",
+    "Test",
 ]
 
 frappe.ui.form.on("Sales Invoice", {
     onload(frm) {
         frm.toggle_display("custom_mismatching_", false);
         if (!frm.is_new()) {
-            //checkMismatched(frm);
+            checkMismatched(frm);
         }
     },
     after_save(frm) {
         frm.toggle_display("custom_mismatching_", false);
         if (!frm.is_new()) {
-            //checkMismatched(frm);
+            checkMismatched(frm);
         }
     },
 });
@@ -75,21 +76,40 @@ const changeMismatchedSectionColor = (frm) => {
         color
     );
 };
-const ignoredFields = new Set([
-    "parentfield", "image", "__unsaved", "creation", "modified", "modified_by"
-]);
 
-const arraysEqual = (a1, a2) =>
-    a1.length === a2.length && a1.every((o, idx) => objectsEqual(o, a2[idx]));
+const arraysEqual = (current, saved) => {
+    if (current.length != saved.length) return false;
+    for (let i = 0; i < current.length; i++) {
+        console.log({
+            current: { ...current[i] },
+            saved: { ...saved[i] },
+            c: {
+                item_code: current[i].item_code,
+                rate: current[i].rate,
+                qty: current[i].qty,
+                amount: current[i].amount,
+                item_tax_template: current[i].item_tax_template,
+                custom_latest_price_list_rate: current[i].custom_latest_price_list_rate,
+            },
+            s: {
+                item_code: saved[i].item_code,
+                rate: saved[i].rate,
+                qty: saved[i].qty,
+                amount: saved[i].amount,
+                item_tax_template: saved[i].item_tax_template,
+                custom_latest_price_list_rate: saved[i].custom_latest_price_list_rate,
+            },
+        });
 
-const objectsEqual = (o1, o2) => {
-    if (typeof o1 === 'object' && o1 !== null && typeof o2 === 'object' && o2 !== null) {
-        const o1Keys = Object.keys(o1).filter(key => !ignoredFields.has(key));
-        const o2Keys = Object.keys(o2).filter(key => !ignoredFields.has(key));
-
-        return o1Keys.length === o2Keys.length &&
-            o1Keys.every(key => objectsEqual(o1[key], o2[key]));
-    } else {
-        return o1 === o2;
+        if (
+            current[i].item_code != saved[i].item_code ||
+            current[i].rate != saved[i].rate ||
+            current[i].qty != saved[i].qty ||
+            current[i].amount != saved[i].amount ||
+            current[i].item_tax_template != saved[i].item_tax_template ||
+            current[i].custom_latest_price_list_rate != saved[i].custom_latest_price_list_rate
+        )
+            return false;
     }
-};
+    return true;
+}
