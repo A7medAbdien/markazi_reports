@@ -107,6 +107,7 @@ const arraysEqual = (current, saved) => {
             current[i].qty != saved[i].qty ||
             current[i].amount != saved[i].amount ||
             current[i].item_tax_template != saved[i].item_tax_template ||
+            current[i].price_list_rate != saved[i].price_list_rate ||
             current[i].custom_latest_price_list_rate != saved[i].custom_latest_price_list_rate
         )
             return false;
