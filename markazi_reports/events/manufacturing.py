@@ -29,16 +29,16 @@ def on_validate_work_order(doc, _):
         lambda item: item.available_qty_at_source_warehouse < item.required_qty,
         work_order_items
     ))
-    print(f"\n\n\n {items_out_of_stock} \n\n\n")
+    # print(f"\n\n\n {items_out_of_stock} \n\n\n")
 
     stock_entry = make_stock_entry(doc.name, "Manufacture", doc.qty)
     stock_entry = frappe.get_doc(stock_entry)
     stock_entry.save()
-    print(f"\n\n\n stock_entry {stock_entry} \n\n\n")
+    # print(f"\n\n\n stock_entry {stock_entry} \n\n\n")
 
     # case A: if no out of stock
     if (len(items_out_of_stock) == 0):
         stock_entry.submit()
 
-    print(f"\n\n\n {doc.as_dict()} \n\n\n")
-    print("on_validate_work_order")
+    # print(f"\n\n\n {doc.as_dict()} \n\n\n")
+    # print("on_validate_work_order")
