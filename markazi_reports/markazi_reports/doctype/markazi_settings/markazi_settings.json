@@ -1,0 +1,48 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-12 12:28:43.026142",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "allowed_companies",
+  "allowed_customers"
+ ],
+ "fields": [
+  {
+   "fieldname": "allowed_companies",
+   "fieldtype": "Table",
+   "label": "Allowed Companies",
+   "options": "Markazi Allowed Companies Table"
+  },
+  {
+   "fieldname": "allowed_customers",
+   "fieldtype": "Table",
+   "label": "Allowed Customers",
+   "options": "Markazi Allowed Customers Table"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-12-12 12:34:42.164088",
+ "modified_by": "Administrator",
+ "module": "Markazi Reports",
+ "name": "Markazi Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

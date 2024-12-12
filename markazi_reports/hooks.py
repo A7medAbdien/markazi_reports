@@ -133,6 +133,9 @@ doctype_js = {
 # 	}
 # }
 doc_events = {
+    "Work Order": {
+        "after_insert": "markazi_reports.events.manufacturing.on_validate_work_order",
+    },
     "Stock Ledger Entry": {
         "on_submit": "markazi_reports.markazi_reports.doctype.markazi_reports.events.on_submit_stock_ledger",
     },
