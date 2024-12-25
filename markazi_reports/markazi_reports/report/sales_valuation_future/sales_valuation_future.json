@@ -9,7 +9,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letterhead": null,
- "modified": "2024-12-25 18:46:26.131720",
+ "modified": "2024-12-25 19:04:54.101199",
  "modified_by": "Administrator",
  "module": "Markazi Reports",
  "name": "Sales Valuation Future",
@@ -20,7 +20,7 @@
  "report_type": "Script Report",
  "roles": [
   {
-   "role": "Markazki Report"
+   "role": "Markazi Reports"
   }
  ],
  "timeout": 0
