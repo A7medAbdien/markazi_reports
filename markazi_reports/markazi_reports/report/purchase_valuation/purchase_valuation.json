@@ -9,9 +9,8 @@
  "idx": 0,
  "is_standard": "Yes",
  "json": "{}",
- "letter_head": "T1",
  "letterhead": null,
- "modified": "2024-08-04 15:07:51.837347",
+ "modified": "2024-12-25 18:46:54.533743",
  "modified_by": "Administrator",
  "module": "Markazi Reports",
  "name": "Purchase Valuation",
@@ -22,7 +21,8 @@
  "report_type": "Script Report",
  "roles": [
   {
-   "role": "System Manager"
+   "role": "Markazki Report"
   }
- ]
+ ],
+ "timeout": 0
 }

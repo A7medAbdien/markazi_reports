@@ -8,9 +8,8 @@
  "filters": [],
  "idx": 0,
  "is_standard": "Yes",
- "letter_head": "T1",
  "letterhead": null,
- "modified": "2024-08-04 15:19:03.809749",
+ "modified": "2024-12-25 18:46:44.763253",
  "modified_by": "Administrator",
  "module": "Markazi Reports",
  "name": "Sales Valuation Past",
@@ -19,5 +18,10 @@
  "ref_doctype": "Markazi Reports",
  "report_name": "Sales Valuation Past",
  "report_type": "Script Report",
- "roles": []
+ "roles": [
+  {
+   "role": "Markazki Report"
+  }
+ ],
+ "timeout": 0
 }

@@ -116,7 +116,8 @@ def execute(filters=None):
             "actual_margin": actual_margin,
         }
 
-    data = [calculate_row(row) for row in product_bundles if row.cost > filtered_cost]
+    data = [calculate_row(row)
+            for row in product_bundles if row.cost > filtered_cost]
     return columns, data
 
 
@@ -182,7 +183,9 @@ def get_sales_invoice_items(filters):
             Avg(sii.rate).as_("price"),
         )
         .where(
-            (si.docstatus == 1) & (si.posting_date[filters.from_date : filters.to_date])
+            (si.docstatus == 1)
+            & (si.posting_date[filters.from_date: filters.to_date])
+            & (sii.item_name.like("9%"))
         )
         .groupby(sii.item_code)
     )
@@ -203,7 +206,8 @@ def get_purchase_receipt_items(filters):
             Avg(pri.rate).as_("rate"),
         )
         .where(
-            (pr.docstatus == 1) & (pr.posting_date[filters.from_date : filters.to_date])
+            (pr.docstatus == 1) & (
+                pr.posting_date[filters.from_date: filters.to_date])
         )
         .groupby(pri.item_code)
     )
